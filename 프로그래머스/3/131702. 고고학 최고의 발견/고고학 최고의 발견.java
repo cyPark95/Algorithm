@@ -1,7 +1,6 @@
 class Solution {
 
     static int answer, len;
-
     static int[] dy = {0, -1, 0, 1, 0};
     static int[] dx = {0, 0, 1, 0, -1};
 
@@ -9,31 +8,31 @@ class Solution {
         answer = Integer.MAX_VALUE;
         len = clockHands.length;
 
-        dfs(clockHands, 0, 0, 0);
+        dfs(clockHands, 0, 0);
         return answer;
     }
 
-    private void dfs(int[][] clockHands, int row, int col, int count) {
-        if (col == len) {
+    private void dfs(int[][] clockHands, int x, int count) {
+        if (x == len) {
             int[][] map = clone(clockHands);
             count += getRotateCount(map);
 
-            if (checked(map)) {
+            if(checked(map)) {
                 answer = Math.min(answer, count);
             }
             return;
         }
 
         for (int i = 1; i <= 4; i++) {
-            rotate(clockHands, row, col);
-            dfs(clockHands, row, col + 1, count + (i % 4));
+            rotate(clockHands, 0, x);
+            dfs(clockHands, x + 1, count + (i % 4));
         }
     }
 
     private int[][] clone(int[][] clockHands) {
         int[][] map = new int[len][];
-        for (int row = 0; row < len; row++) {
-            map[row] = clockHands[row].clone();
+        for (int y = 0; y < len; y++) {
+            map[y] = clockHands[y].clone();
         }
 
         return map;
@@ -45,8 +44,8 @@ class Solution {
             for (int col = 0; col < len; col++) {
                 int rotateCount = (4 - map[row - 1][col]) % 4;
                 for (int i = 0; i < rotateCount; i++) {
-                    count++;
                     rotate(map, row, col);
+                    count++;
                 }
             }
         }
@@ -55,23 +54,21 @@ class Solution {
     }
 
     private boolean checked(int[][] map) {
-        for (int[] row : map) {
-            for (int clockHand : row) {
-                if (clockHand != 0) {
-                    return false;
-                }
+        for (int col = 0; col < len; col++) {
+            if (map[len - 1][col] != 0) {
+                return false;
             }
         }
         return true;
     }
 
-    private void rotate(int[][] map, int y, int x) {
+    private void rotate(int[][] clockHands, int y, int x) {
         for (int i = 0; i < 5; i++) {
             int ny = y + dy[i];
             int nx = x + dx[i];
 
             if (ny >= 0 && ny < len && nx >= 0 && nx < len) {
-                map[ny][nx] = (map[ny][nx] + 1) % 4;
+                clockHands[ny][nx] = (clockHands[ny][nx] + 1) % 4;
             }
         }
     }

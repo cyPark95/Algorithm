@@ -1,10 +1,10 @@
 # [level 3] 고고학 최고의 발견 - 131702 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131702#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131702) 
 
 ### 성능 요약
 
-메모리: 101 MB, 시간: 150.43 ms
+메모리: 118 MB, 시간: 134.24 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 22일 15:01:25
+2024년 04월 23일 08:59:32
 
 ### 문제 설명
 
