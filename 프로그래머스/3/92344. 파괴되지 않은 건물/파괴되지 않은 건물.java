@@ -1,37 +1,36 @@
 class Solution {
-    public int solution(int[][] board, int[][] skill) {
+    public int solution(int[][] board, int[][] skills) {
         int answer = 0;
-
         int height = board.length;
         int width = board[0].length;
 
-        int[][] prefixSum = new int[height + 1][width + 1];
-        for (int[] round : skill) {
-            int degree = round[5] * (round[0] == 1 ? -1 : 1);
-            int[] start = new int[]{round[1], round[2]};
-            int[] end = new int[]{round[3], round[4]};
+        int[][] map = new int[height + 1][width + 1];
+        for (int[] skill : skills) {
+            int[] start = new int[]{skill[1], skill[2]};
+            int[] end = new int[]{skill[3], skill[4]};
+            int degree = skill[5] * (skill[0] == 1 ? -1 : 1);
 
-            prefixSum[start[0]][start[1]] += degree;
-            prefixSum[start[0]][end[1] + 1] -= degree;
-            prefixSum[end[0] + 1][start[1]] -= degree;
-            prefixSum[end[0] + 1][end[1] + 1] += degree;
+            map[start[0]][start[1]] += degree;
+            map[start[0]][end[1] + 1] -= degree;
+            map[end[0] + 1][start[1]] -= degree;
+            map[end[0] + 1][end[1] + 1] += degree;
         }
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 1; j < width; j++) {
-                prefixSum[i][j] += prefixSum[i][j - 1];
+        for (int row = 0; row < height; row++) {
+            for (int col = 1; col < width; col++) {
+                map[row][col] += map[row][col - 1];
             }
         }
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 1; j < height; j++) {
-                prefixSum[j][i] += prefixSum[j - 1][i];
+        for (int col = 0; col < height; col++) {
+            for (int row = 1; row < width; row++) {
+                map[row][col] += map[row - 1][col];
             }
         }
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (board[i][j] + prefixSum[i][j] > 0) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if (board[row][col] + map[row][col] > 0) {
                     answer++;
                 }
             }
