@@ -18,14 +18,16 @@ class Solution {
                 endTime = jobs[index][0];
                 pq.offer(new Job(index, jobs[index][0], jobs[index][1]));
                 index++;
-            } else {
-                Job job = pq.poll();
-                endTime += job.time;
-                answer += endTime - job.requestTime;
+                continue;
             }
+            
+            Job job = pq.poll();
+            endTime += job.time;
+            answer += endTime - job.requestTime;
         }
 
-        return answer / jobs.length;
+        answer /= jobs.length;
+        return answer;
     }
 
     static class Job implements Comparable<Job> {
