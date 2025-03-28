@@ -18,8 +18,12 @@ class Solution {
 
         for (int[] wire : wires) {
             visited = new boolean[n + 1][n + 1];
-            visit(wire[0], wire[1]);
-            answer = Math.min(answer, Math.abs((2 * dfs(graph, 1)) - n));
+            visited[wire[0]][wire[1]] = true;
+            visited[wire[1]][wire[0]] = true;
+            int count = dfs(graph, 1);
+            
+            int result = (2 * count) - n;
+            answer = Math.min(answer, Math.abs(result));
         }
 
         return answer;
@@ -29,16 +33,12 @@ class Solution {
         int count = 1;
         for (int node : graph.get(n)) {
             if (!visited[n][node]) {
-                visit(n, node);
+                visited[n][node] = true;
+                visited[node][n] = true;
                 count += dfs(graph, node);
             }
         }
 
         return count;
-    }
-
-    private void visit(int v1, int v2) {
-        visited[v1][v2] = true;
-        visited[v2][v1] = true;
     }
 }
