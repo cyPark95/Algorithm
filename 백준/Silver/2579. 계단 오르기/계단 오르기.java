@@ -5,43 +5,37 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static int N;
-    static int[] stairs;
-    static Integer[] dp;
-
     public static void main(String[] args) {
         input();
         solution();
     }
 
+    static int n;
+    static int[] stairs;
+
     private static void input() {
         ScannerReader sr = new ScannerReader();
-        N = sr.nextInt();
+        n = sr.nextInt();
 
-        stairs = new int[N + 1];
-        for (int i = 1; i <= N; i++) {
+        stairs = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
             stairs[i] = sr.nextInt();
         }
-
-        dp = new Integer[N + 1];
     }
 
     private static void solution() {
-        dp[0] = stairs[0];
+        int[] dp = new int[n + 1];
         dp[1] = stairs[1];
 
-        if(N >= 2) {
+        if (n > 1) {
             dp[2] = stairs[1] + stairs[2];
         }
-        System.out.println(recursive(N));
-    }
 
-    private static int recursive(int N) {
-        if (dp[N] == null) {
-            dp[N] = Math.max(recursive(N - 2), recursive(N - 3) + stairs[N - 1]) + stairs[N];
+        for (int i = 3; i <= n; i++) {
+            dp[i] = Math.max(dp[i - 2], dp[i - 3] + stairs[i - 1]) + stairs[i];
         }
 
-        return dp[N];
+        System.out.println(dp[n]);
     }
 
     static class ScannerReader {
@@ -53,19 +47,20 @@ public class Main {
             br = new BufferedReader(new InputStreamReader(System.in));
         }
 
-        public String readLine() {
+        public String getReadLine() {
             try {
                 return br.readLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
             return "";
         }
 
         public String next() {
             while (st == null || !st.hasMoreElements()) {
-                st = new StringTokenizer(readLine());
+                st = new StringTokenizer(getReadLine());
             }
+
             return st.nextToken();
         }
 
