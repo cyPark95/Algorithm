@@ -1,6 +1,6 @@
 # [level 4] 사칙연산 - 1843 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1843#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1843?language=java) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 08월 07일 19:42:53
+2025년 08월 07일 19:43:42
 
 ### 문제 설명
 
